@@ -1,6 +1,3 @@
-# kuhl-haus-mdp-deployment
-Example code for deploying Kuhl Haus Market Data Processing
-
 # Stock Scanner - Docker Configuration
 
 **TL;DR:** Public Docker Compose and Dockerfile configurations for the stock scanner application detailed in [Part 2 of the blog series](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-2-94e445914951). Pre-built images available for quick deployment with real-time WebSocket market data via Massive.com API.
