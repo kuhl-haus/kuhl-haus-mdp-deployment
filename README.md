@@ -64,10 +64,10 @@ A: Yes. Use the `Dockerfile` to build from source with your modifications. See [
 # Contributing
 
 Contributions are welcome! Please submit pull requests to the appropriate repository:
-- Core library change: `kuhl-haus-mdp`
-- Backend changes: `kuhl-haus-mdp-servers`
-- Frontend changes: `kuhl-haus-mdp-app`
-- Deployment improvements: `kuhl-haus-mdp-deployment`
+- Core library change: [`kuhl-haus-mdp`](https://github.com/kuhl-haus/kuhl-haus-mdp)
+- Backend changes: [`kuhl-haus-mdp-servers`](https://github.com/kuhl-haus/kuhl-haus-mdp-servers)
+- Frontend changes: [`kuhl-haus-mdp-app`](https://github.com/kuhl-haus/kuhl-haus-mdp-app)
+- Deployment improvements: [`kuhl-haus-mdp-deployment`](https://github.com/kuhl-haus/kuhl-haus-mdp-deployment)
 
 ---
 
