@@ -7,27 +7,27 @@ common:
   # Materials
   mdp-app-repo: &mdp_app_repo
     git: https://github.com/kuhl-haus/kuhl-haus-mdp-app
-    username: your-user-name
+    username: YOUR-USER-NAME
     shallow_clone: false
     auto_update: true
     branch: mainline
-    encrypted_password: your-gocd-encrypted-personal-access-token
+    encrypted_password: YOUR-GOCD-ENCRYPTED-PERSONAL-ACCESS-TOKEN
     destination: kuhl-haus-mdp-app
   mdp-servers-repo: &mdp_servers_repo
     git: https://github.com/kuhl-haus/kuhl-haus-mdp-servers
-    username: your-user-name
+    username: YOUR-USER-NAME
     shallow_clone: false
     auto_update: true
     branch: mainline
-    encrypted_password: your-gocd-encrypted-personal-access-token
+    encrypted_password: YOUR-GOCD-ENCRYPTED-PERSONAL-ACCESS-TOKEN
     destination: kuhl-haus-mdp-servers
   mdp-deploy-repo: &mdp_deploy_repo
-    git: https://github.com/kuhl-haus/kuhl-haus-mdp-deployment
-    username: your-user-name
+    git: https://github.com/YOUR-USER-NAME/kuhl-haus-mdp-deployment
+    username: YOUR-USER-NAME
     shallow_clone: true
     auto_update: true
     branch: mainline
-    encrypted_password: your-gocd-encrypted-personal-access-token
+    encrypted_password: YOUR-GOCD-ENCRYPTED-PERSONAL-ACCESS-TOKEN
     destination: deploy
 
 
