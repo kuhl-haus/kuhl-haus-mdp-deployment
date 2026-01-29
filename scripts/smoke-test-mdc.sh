@@ -49,7 +49,7 @@ run_test_cmd_with_retry() {
 ###############################################################################
 SHOULD_EXIT_WITH_CODE=0
 
-if [ -z $MDC_SERVER_DOMAIN ]; then
+if [ -z ${MDC_SERVER_DOMAIN} ]; then
   echo "MDC_SERVER_DOMAIN environment variable is not set!"
   exit 1
 fi

@@ -106,13 +106,17 @@ get_image_tag() {
 ###############################################################################
 SHOULD_EXIT_WITH_CODE=0
 
-if [ -z MDL_SERVER_DOMAIN ]; then
+if [ -z ${MDL_SERVER_DOMAIN} ]; then
   echo "MDL_SERVER_DOMAIN environment variable is not set!"
   exit 1
 fi
+
+if [ -z ${BASE_WORKING_DIR} ]; then
+  echo "BASE_WORKING_DIR environment variable is not set!"
+  exit 1
+fi
 # Stack User Home Directory
-export BASE_WORKING_DIR="${GO_BASE_DIR}/pipelines/${GO_PIPELINE_NAME}"
-export VERSION_DIR_NAME="mdp-servers"
+export VERSION_DIR_NAME="kuhl-haus-mdp-servers"
 export VERSION_SRC_DIR="${BASE_WORKING_DIR}/${VERSION_DIR_NAME}"
 
 cd "${VERSION_SRC_DIR}" || exit 1

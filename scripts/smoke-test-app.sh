@@ -143,13 +143,16 @@ get_image_tag() {
 ###############################################################################
 SHOULD_EXIT_WITH_CODE=0
 
-if [ -z $APP_DOMAIN ]; then
+if [ -z ${APP_DOMAIN} ]; then
   echo "APP_DOMAIN environment variable is not set!"
   exit 1
 fi
+if [ -z ${BASE_WORKING_DIR} ]; then
+  echo "BASE_WORKING_DIR environment variable is not set!"
+  exit 1
+fi
 # Stack User Home Directory
-export BASE_WORKING_DIR="${GO_BASE_DIR}/pipelines/${GO_PIPELINE_NAME}"
-export VERSION_DIR_NAME="mdp-app"
+export VERSION_DIR_NAME="kuhl-haus-mdp-app"
 export VERSION_SRC_DIR="${BASE_WORKING_DIR}/${VERSION_DIR_NAME}"
 
 cd "${VERSION_SRC_DIR}" || exit 1
