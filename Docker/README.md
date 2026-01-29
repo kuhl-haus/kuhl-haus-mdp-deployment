@@ -38,13 +38,3 @@ A: Check the port mapping in `compose.yaml`. Default is typically exposed in the
 **Q: Can I customize the scanner logic?**  
 A: Yes. Use the `Dockerfile` to build from source with your modifications. See [Part 2 of the blog series](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-2-94e445914951) for building instructions.
 
----
-
-## Additional Resources
-
-📖 **Blog Series:**
-- [Part 1: Why I Built It](https://medium.com/@oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-28fc3b6d9be0)
-- [Part 2: How to Run It](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-2-94e445914951)
-- Part 3: Coming soon
-
-

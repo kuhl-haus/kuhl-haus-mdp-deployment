@@ -1,53 +1,80 @@
-# kuhl-haus-mdp-deployment
-Example code for deploying Kuhl Haus Market Data Processing
+# Kuhl Haus MDP - Market Data Platform
+
+Example code for deploying Kuhl Haus Market Data Platform
+
+## Overview
+
+The Kuhl Haus Market Data Platform (MDP) is a distributed system for collecting, processing, and serving real-time market data. Built on Kubernetes and leveraging microservices architecture, MDP provides scalable infrastructure for financial data analysis and visualization.
+
+### Architecture
+
+The platform consists of four main components:
+- **Market data processing library** (`kuhl-haus-mdp`) - Core library with shared data processing logic
+- **Backend Services** (`kuhl-haus-mdp-servers`) - Market data listener, processor, and widget service
+- **Frontend Application** (`kuhl-haus-mdp-app`) - Web-based user interface and API gateway
+- **Deployment Automation** (`kuhl-haus-mdp-deployment`) - Docker Compose, Ansible playbooks and Kubernetes manifests for environment provisioning
+
+### Key Features
+
+- Real-time market data ingestion and processing
+- Scalable microservices architecture
+- Automated deployment with Ansible and Kubernetes
+- Multi-environment support (development, staging, production)
+- OAuth integration for secure authentication
+- Redis-based caching layer for performance
+
 
 # Stock Scanner - Docker Configuration
 
-**TL;DR:** Public Docker Compose and Dockerfile configurations for the stock scanner application detailed in [Part 2 of the blog series](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-2-94e445914951). Pre-built images available for quick deployment with real-time WebSocket market data via Massive.com API.
+Public Docker Compose and Dockerfile configurations for the stock scanner application detailed in [Part 2 of the blog series](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-2-94e445914951). Pre-built images available for quick deployment with real-time WebSocket market data via Massive.com API.
 
-## Quick Start
+View [Docker/README.md](./Docker/README.md) to get started.
 
-1. Clone this repository
-2. Add your Massive.com API key to compose.yaml (edit the MASSIVE_API_KEY environment variable)
-3. Launch: `docker compose up -d`
-4. Access the application at http://localhost:8000 and login
+# Stock Scanner - Ansible/Kubernetes Configuration
 
-## What's Included
+The Kuhl Haus Market Data Platform (MDP) is a distributed system for collecting, processing, and serving real-time market data. Built on Kubernetes and leveraging microservices architecture, MDP provides scalable infrastructure for financial data analysis and visualization.
 
-- **`compose.yaml`**: Orchestrates pre-built container images for immediate deployment
-- **`Dockerfile`**: Build configuration for custom modifications
 
-## Prerequisites
-
-- Docker & Docker Compose installed
-- **Massive.com API subscription** (Stocks Advanced $200/month recommended for real-time WebSocket data)
+View [ansible/README.md](./ansible/README.md) to get started.
 
 ---
 
-## FAQ
+# FAQ
 
 **Q: Can I use the free Massive.com tier?**  
 A: No. The free Stocks Basic plan lacks WebSocket support required for real-time data. The $29/month Stocks Starter _might_ work but has 15-minute delayed data.
 
 **Q: Do I need to build from source?**  
-A: No. The `compose.yaml` references pre-built public images. Only build from source if you're customizing the application.
-
-**Q: Where do I add my API key?**  
-A: Edit the `MASSIVE_API_KEY` environment variable in `compose.yaml` before running `docker compose up`.
-
-**Q: What port does the application use?**  
-A: Check the port mapping in `compose.yaml`. Default is typically exposed in the `ports:` section.
+A: No. The README files references pre-built public images. Only build from source if you're customizing the application.
 
 **Q: Can I customize the scanner logic?**  
 A: Yes. Use the `Dockerfile` to build from source with your modifications. See [Part 2 of the blog series](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-2-94e445914951) for building instructions.
 
 ---
 
-## Additional Resources
+# Additional Resources
 
 📖 **Blog Series:**
-- [Part 1: Why I Built It](https://medium.com/@oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-28fc3b6d9be0)
+- [Part 1: Why I Built It](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-28fc3b6d9be0)
 - [Part 2: How to Run It](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-2-94e445914951)
 - Part 3: Coming soon
 
 
+
+# Contributing
+
+Contributions are welcome! Please submit pull requests to the appropriate repository:
+- Core library change: `kuhl-haus-mdp`
+- Backend changes: `kuhl-haus-mdp-servers`
+- Frontend changes: `kuhl-haus-mdp-app`
+- Deployment improvements: `kuhl-haus-mdp-deployment`
+
+---
+
+# License
+
+[MIT License](https://github.com/kuhl-haus/kuhl-haus-mdp-deployment/blob/mainline/LICENSE.txt)
+
+# Support
+
+For questions or issues, please open an issue in the respective repository or contact the maintainers.
