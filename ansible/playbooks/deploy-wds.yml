@@ -22,8 +22,7 @@
             namespace: '{{ data_plane_namespace }}'
           stringData:
             # REDIS_URL: "redis://:{{ redis_password }}@mdp-redis.{{ data_plane_namespace }}.svc.cluster.local:{{ redis_port }}/0"
-            REDIS_URL: redis://mdp-redis.{{ data_plane_namespace }}.svc.cluster.local:{{
-              redis_port }}/0
+            REDIS_URL: redis://mdp-redis.{{ data_plane_namespace }}.svc.cluster.local:{{ redis_port }}/0
             REDIS_PASSWORD: '{{ redis_password }}'
             AUTH_API_KEY: '{{ wds_server_auth_api_key }}'
       environment:
