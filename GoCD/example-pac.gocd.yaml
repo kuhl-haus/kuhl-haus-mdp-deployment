@@ -109,6 +109,24 @@ common:
             - ./deploy/scripts/smoke-test-app.sh  
   
   ## Data Plane
+  run-data-plane-certificate-manager-playbook: &run_data_plane_certificate_manager_playbook
+    fetch_materials: false
+    keep_artifacts: false
+    clean_workspace: false
+    approval:
+      type: success
+      allow_only_on_success: true
+    jobs:
+      run-scripts:
+        timeout: 0
+        run_instances: all
+        tasks:
+        - exec:
+            command: sudo
+            arguments:
+            - -EHn
+            - ./deploy/scripts/04-run-data-plane-playbook.sh
+            - deploy-dp-cm.yml
   run-market-data-cache-playbook: &run_market_data_cache_playbook
     fetch_materials: false
     keep_artifacts: false
@@ -317,6 +335,9 @@ pipelines:
       - deploy-application: *run_deploy_app_playbook
       - smoke-test-app: *smoke_test_app
 
+      # Data Plane: Certificate Manager
+      - deploy-data-plane-certificate-manager: *run_data_plane_certificate_manager_playbook
+      
       # Data Plane: Cache
       - deploy-market-data-cache: *run_market_data_cache_playbook
       - smoke-test-mdc: *smoke_test_mdc
