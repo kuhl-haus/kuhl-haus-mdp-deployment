@@ -18,7 +18,7 @@ The Kuhl Haus Market Data Platform (MDP) is a distributed system for collecting,
 
 #### Kubernetes
 
-This tutorial uses Kubernetes on Docker Desktop for consistency and ease of setup. The deployment manifests can be adapted for production Kubernetes clusters such as Amazon EKS, Google GKE, or Azure AKS with minimal modifications to namespace and ingress configurations.
+This tutorial uses Kubernetes on Docker Desktop for consistency and ease of setup. The deployment manifests can be adapted for production Kubernetes clusters such as Amazon EKS, Google GKE, or Azure AKS with minimal modifications to network and ingress configurations.
 
 **Installation**:
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop)
@@ -27,7 +27,7 @@ This tutorial uses Kubernetes on Docker Desktop for consistency and ease of setu
 
 #### Ansible
 
-Ansible 2.9 or higher is required for running the deployment playbooks.
+Ansible 2.19 or higher is required for running the deployment playbooks.
 
 **Installation**: Follow the [official Ansible installation guide](https://docs.ansible.com/ansible/latest/installation_guide/index.html) for your operating system.
 
@@ -212,13 +212,13 @@ Deploy RabbitMQ message queuing system:
 ./scripts/smoke-test-mdq.sh
 ```
 
-##### Step 4.4 - Widget Data Service
+##### Step 4.4 - Market Data Listener
 
-Deploy the widget data WebSocket service:
+Deploy the market data ingestion service:
 
 ```bash
-./scripts/04-run-data-plane-playbook.sh deploy-wds.yml
-./scripts/smoke-test-wds.sh
+./scripts/04-run-data-plane-playbook.sh deploy-mdl.yml
+./scripts/smoke-test-mdl.sh
 ```
 
 ##### Step 4.5 - Market Data Processors
@@ -230,14 +230,15 @@ Deploy data processing workers:
 ./scripts/smoke-test-mdp.sh
 ```
 
-##### Step 4.6 - Market Data Listener
+##### Step 4.6 - Widget Data Service
 
-Deploy the market data ingestion service:
+Deploy the widget data WebSocket service:
 
 ```bash
-./scripts/04-run-data-plane-playbook.sh deploy-mdl.yml
-./scripts/smoke-test-mdl.sh
+./scripts/04-run-data-plane-playbook.sh deploy-wds.yml
+./scripts/smoke-test-wds.sh
 ```
+
 
 
 ---

@@ -1,6 +1,11 @@
 - hosts: dev-admin
   become: yes
   tasks:
+    - name: Set runtime facts for Python interpreter
+      ansible.builtin.set_fact:
+        ansible_python_interpreter: /opt/ansible/venv/bin/python
+        ansible_python_venv_dir: /opt/ansible/venv
+
     # Pre-flight: Ensure node has podCIDR assigned
     - name: Check if node has podCIDR assigned
       become: yes

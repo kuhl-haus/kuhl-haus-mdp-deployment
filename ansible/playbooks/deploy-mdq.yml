@@ -6,6 +6,11 @@
   become_user: stack
 
   tasks:
+    - name: Set runtime facts for Python interpreter
+      ansible.builtin.set_fact:
+        ansible_python_interpreter: /opt/ansible/venv/bin/python
+        ansible_python_venv_dir: /opt/ansible/venv
+
     # RabbitMQ Credentials Secret
     - name: Create RabbitMQ credentials secret
       kubernetes.core.k8s:

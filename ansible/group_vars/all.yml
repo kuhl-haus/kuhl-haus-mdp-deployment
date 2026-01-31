@@ -1,8 +1,8 @@
 # group_vars/all/all.yml
 ansible_user: stack
 ansible_ssh_host_key_checking: false
-ansible_python_interpreter: /opt/ansible/venv/bin/python
-ansible_python_venv_dir: /opt/ansible/venv
+# ansible_python_interpreter: /opt/ansible/venv/bin/python
+# ansible_python_venv_dir: /opt/ansible/venv
 
 # Kubernetes settings
 manifests_dir: /home/stack/mdp

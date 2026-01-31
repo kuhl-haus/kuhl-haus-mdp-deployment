@@ -11,7 +11,7 @@ The Kuhl Haus Market Data Platform (MDP) is a distributed system for collecting,
 The platform consists of four main components:
 - **Market data processing library** (`kuhl-haus-mdp`) - Core library with shared data processing logic
 - **Backend Services** (`kuhl-haus-mdp-servers`) - Market data listener, processor, and widget service
-- **Frontend Application** (`kuhl-haus-mdp-app`) - Web-based user interface and API gateway
+- **Frontend Application** (`kuhl-haus-mdp-app`) - Web-based user interface and API
 - **Deployment Automation** (`kuhl-haus-mdp-deployment`) - Docker Compose, Ansible playbooks and Kubernetes manifests for environment provisioning
 
 ### Key Features

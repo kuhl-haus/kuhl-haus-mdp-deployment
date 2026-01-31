@@ -6,6 +6,11 @@
   become_user: stack
 
   tasks:
+    - name: Set runtime facts for Python interpreter
+      ansible.builtin.set_fact:
+        ansible_python_interpreter: /opt/ansible/venv/bin/python
+        ansible_python_venv_dir: /opt/ansible/venv
+  
     # Namespace
     - name: Create application namespace
       kubernetes.core.k8s:

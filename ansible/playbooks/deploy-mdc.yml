@@ -6,6 +6,11 @@
   become_user: stack
 
   tasks:
+    - name: Set runtime facts for Python interpreter
+      ansible.builtin.set_fact:
+        ansible_python_interpreter: /opt/ansible/venv/bin/python
+        ansible_python_venv_dir: /opt/ansible/venv
+
     # Redis Password Secret
     - name: Create Redis password secret
       kubernetes.core.k8s:
@@ -282,7 +287,8 @@
       kubernetes.core.k8s_exec:
         namespace: "{{ data_plane_namespace }}"
         pod: mdp-redis-0
-        command: sh -c 'redis-cli -a "$REDIS_PASSWORD" ping'
+        command: sh -c 'redis-cli ping'
+        # command: sh -c 'redis-cli -a "$REDIS_PASSWORD" ping'
       environment:
         KUBECONFIG: /home/stack/.kube/config
       register: redis_ping
