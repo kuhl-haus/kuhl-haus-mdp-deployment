@@ -57,7 +57,7 @@ A: Yes. Use the `Dockerfile` to build from source with your modifications. See [
 📖 **Blog Series:**
 - [Part 1: Why I Built It](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-28fc3b6d9be0)
 - [Part 2: How to Run It](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-2-94e445914951)
-- Part 3: Coming soon
+- [Part 3: How to Deploy It](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-3-eab7d9bbf5f7)
 
 
 

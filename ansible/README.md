@@ -4,6 +4,10 @@
 
 The Kuhl Haus Market Data Platform (MDP) is a distributed system for collecting, processing, and serving real-time market data. Built on Kubernetes and leveraging microservices architecture, MDP provides scalable infrastructure for financial data analysis and visualization.
 
+Check out  where I walkthrough this deployment, installing it from scratch on Docker Desktop, and perform end-to-end validations.
+
+Check out [my blog post](https://the.oldschool.engineer/what-i-built-after-quitting-amazon-spoiler-its-a-stock-scanner-part-3-eab7d9bbf5f7), where I walk through the complete MDP deployment process—from scratch installation on Docker Desktop to end-to-end validation testing.
+
 
 ## Prerequisites
 
