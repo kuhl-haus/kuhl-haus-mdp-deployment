@@ -27,6 +27,8 @@
             RABBITMQ_USER: "{{ rabbitmq_user }}"
             RABBITMQ_PASS: "{{ rabbitmq_password }}"
             MASSIVE_API_KEY: "{{ massive_api_key }}"
+            OTEL_EXPORTER_OTLP_ENDPOINT: "{{ otel_exporter_otlp_endpoint }}"
+            OTEL_EXPORTER_OTLP_HEADERS: "{{ otel_exporter_otlp_headers }}"
       environment:
         KUBECONFIG: /home/stack/.kube/config
       no_log: true
@@ -101,6 +103,18 @@
                         value: "{{ market_data_listener_auto_start_enabled | string }}"
                       - name: MASSIVE_SUBSCRIPTIONS
                         value: '{{ massive_subscriptions | to_json }}'
+                      - name: OTEL_SERVICE_NAME
+                        value: "mdl"
+                      - name: OTEL_TRACES_EXPORTER
+                        value: "{{ otel_traces_exporter }}"
+                      - name: OTEL_METRICS_EXPORTER
+                        value: "{{ otel_metrics_exporter }}"
+                      - name: OTEL_LOGS_EXPORTER
+                        value: "{{ otel_logs_exporter }}"
+                      - name: OTEL_LOG_LEVEL
+                        value: "{{ otel_log_level }}"
+                      - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                        value: "{{ otel_exporter_otlp_protocol}}"
                     resources:
                       requests:
                         cpu: "{{ mdl_server_cpu_min | default('250m') }}"

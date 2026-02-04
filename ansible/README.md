@@ -108,6 +108,8 @@ admin_name: ""
 admin_email: ""
 
 # Development environment credentials
+dev_otel_exporter_otlp_endpoint: ""
+dev_otel_exporter_otlp_headers: ""
 dev_admin_password: ""
 dev_wds_api_token: ""
 dev_postgres_password: ""
