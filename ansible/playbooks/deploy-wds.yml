@@ -1,7 +1,7 @@
 - name: Deploy Widget Data Service
   hosts: all
   gather_facts: true
-  become: 'yes'
+  become: true
   become_user: stack
 
   tasks:

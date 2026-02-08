@@ -1,5 +1,5 @@
 - hosts: dev-admin
-  become: yes
+  become: true
   tasks:
     - name: Set runtime facts for Python interpreter
       ansible.builtin.set_fact:
@@ -8,7 +8,7 @@
 
     # Pre-flight: Ensure node has podCIDR assigned
     - name: Check if node has podCIDR assigned
-      become: yes
+      become: true
       become_user: stack
       command: kubectl get node docker-desktop -o jsonpath='{.spec.podCIDR}'
       register: podcidr_check
@@ -18,7 +18,7 @@
         KUBECONFIG: /home/stack/.kube/config
 
     - name: Assign podCIDR to node (Docker Desktop workaround)
-      become: yes
+      become: true
       become_user: stack
       command: >
         kubectl patch node docker-desktop
@@ -29,7 +29,7 @@
 
     # Install Pod Network
     - name: Install Flannel Pod Network
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.k8s:
         state: present
@@ -53,7 +53,7 @@
 
     # NGINX Ingress Controller
     - name: Add NGINX ingress Helm repository
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.helm_repository:
         name: ingress-nginx
@@ -62,7 +62,7 @@
         KUBECONFIG: /home/stack/.kube/config
 
     - name: Install NGINX ingress controller
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.helm:
         name: ingress-nginx
@@ -75,7 +75,7 @@
 
     # MetalLB - To enable MetalLB, set 'use_metal_lb: true' in the inventory vars
     - name: Install MetalLB
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.k8s:
         state: present
@@ -85,7 +85,7 @@
       when: use_metal_lb is defined and use_metal_lb
 
     - name: Wait for MetalLB pods to be ready
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.k8s_info:
         kind: Pod
@@ -106,7 +106,7 @@
       when: use_metal_lb is defined and use_metal_lb
 
     - name: Apply MetalLB IP address pool configuration
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.k8s:
         state: present
@@ -124,7 +124,7 @@
       when: use_metal_lb is defined and use_metal_lb
 
     - name: Apply MetalLB L2 advertisement configuration
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.k8s:
         state: present
@@ -140,7 +140,7 @@
 
     # Certificate Manager
     - name: Add Jetstack Helm repository
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.helm_repository:
         name: jetstack
@@ -149,12 +149,12 @@
         KUBECONFIG: /home/stack/.kube/config
 
     - name: Install cert-manager
-      become: yes
+      become: true
       become_user: stack
       kubernetes.core.helm:
         name: cert-manager
         chart_ref: jetstack/cert-manager
-        chart_version: v1.16.2
+        chart_version: v1.19.3
         release_namespace: cert-manager
         create_namespace: true
         update_repo_cache: true
