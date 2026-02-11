@@ -54,7 +54,7 @@ Prometheus is configured to scrape each component every 30 seconds. It sends req
 | `kuhl_haus_mdp_prefetch_count` | Queue prefetch count |
 | `kuhl_haus_mdp_max_concurrency` | Max concurrency setting |
 
-Per-worker metrics (labeled by `worker_id`, workers 0–19):
+Per-worker metrics (labeled by `worker_id`, workers 0–31):
 
 | Metric | Description |
 |---|---|
