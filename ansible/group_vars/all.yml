@@ -135,3 +135,31 @@ wds_server_cpu_min: "250m"
 wds_server_cpu_max: "2000m"
 wds_server_memory_min: "256Mi"
 wds_server_memory_max: "2Gi"
+
+# Finlight Data Listener
+fdl_server_name: fdl
+fdl_server_container_port: 4203
+fdl_server_replicas: 1
+fdl_server_ingress_class: nginx
+fdl_server_log_level: INFO
+fdl_server_secret_name: "{{ fdl_server_name }}-secrets"
+fdl_server_cert_issuer: "{{ acme_aws_prod_issuer }}"
+fdl_server_cpu_min: "250m"
+fdl_server_cpu_max: "1000m"
+fdl_server_memory_min: "256Mi"
+fdl_server_memory_max: "1Gi"
+market_data_listener_auto_start_enabled: "true"
+fdl_include_entities: "true"
+
+# Finlight Data Processor
+fdp_server_name: fdp
+fdp_server_container_port: 4204
+fdp_server_replicas: 1
+fdp_server_ingress_class: nginx
+fdp_server_log_level: INFO
+fdp_server_secret_name: "{{ fdp_server_name }}-secrets"
+fdp_server_cert_issuer: "{{ acme_aws_prod_issuer }}"
+fdp_server_cpu_min: "250m"
+fdp_server_cpu_max: "1000m"
+fdp_server_memory_min: "256Mi"
+fdp_server_memory_max: "1Gi"
