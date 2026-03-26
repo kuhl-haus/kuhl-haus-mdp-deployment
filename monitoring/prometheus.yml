@@ -66,3 +66,49 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: 192.168.8.125:7979
+
+  - job_name: 'kuhl-haus-fdl'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    params:
+      module: [fdl_health]
+    static_configs:
+      - targets:
+        - https://fdl.example.com/health
+        labels:
+          environment: prod
+      # - targets:
+      #   - https://fdl-ppe.example.com/health
+      #   labels:
+      #     environment: ppe
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 192.168.8.125:7979  # Replace with your JSON exporter address
+
+  - job_name: 'kuhl-haus-fdp'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    params:
+      module: [fdp_health]
+    static_configs:
+      - targets:
+        - https://fdp.example.com/health
+        labels:
+          environment: prod
+      # - targets:
+      #   - https://fdp-ppe.example.com/health
+      #   labels:
+      #     environment: ppe
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 192.168.8.125:7979  # Replace with your JSON exporter address

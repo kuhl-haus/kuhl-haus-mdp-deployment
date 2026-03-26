@@ -2088,3 +2088,147 @@ modules:
       - name: kuhl_haus_wds_active_websocket_clients
         help: Active WebSocket connections
         path: '{.active_ws_clients}'
+
+  fdl_health:
+    metrics:
+      # Service status
+      - name: kuhl_haus_service_up
+        help: Service status (1=running, 0=not running)
+        path: '{.status}'
+        labels:
+          service: '{.service}'
+          container_image: '{.container_image}'
+          image_version: '{.image_version}'
+
+      - name: kuhl_haus_fdl_auto_start_enabled
+        help: FDL auto-start enabled status
+        path: '{.auto-start}'
+        labels:
+          service: '{.service}'
+
+      # FDQ (RabbitMQ queue) connection
+      - name: kuhl_haus_fdl_fdq_connected
+        help: FDQ connection status
+        path: '{.fdq_connection_status.connected}'
+        labels:
+          service: '{.service}'
+          queue: '{.fdq_connection_status.queue_name}'
+
+      - name: kuhl_haus_fdl_fdq_messages_received_total
+        help: Total messages received from FDQ
+        path: '{.fdq_connection_status.messages_received}'
+        labels:
+          service: '{.service}'
+          queue: '{.fdq_connection_status.queue_name}'
+
+      - name: kuhl_haus_fdl_fdq_news_received_total
+        help: Total news messages received from FDQ
+        path: '{.fdq_connection_status.news}'
+        labels:
+          service: '{.service}'
+          queue: '{.fdq_connection_status.queue_name}'
+
+      - name: kuhl_haus_fdl_fdq_reconnect_attempts_total
+        help: Total FDQ reconnection attempts
+        path: '{.fdq_connection_status.reconnect_attempts}'
+        labels:
+          service: '{.service}'
+          queue: '{.fdq_connection_status.queue_name}'
+
+      # FDL (Finlight WebSocket) connection
+      - name: kuhl_haus_fdl_feed_connected
+        help: Finlight feed connection status
+        path: '{.fdl_connection_status.connected}'
+        labels:
+          service: '{.service}'
+
+      - name: kuhl_haus_fdl_feed_healthy
+        help: Finlight feed health status
+        path: '{.fdl_connection_status.healthy}'
+        labels:
+          service: '{.service}'
+
+      - name: kuhl_haus_fdl_articles_received_total
+        help: Total articles received from Finlight
+        path: '{.fdl_connection_status.articles_received}'
+        labels:
+          service: '{.service}'
+
+      - name: kuhl_haus_fdl_errors_total
+        help: Total Finlight connection errors
+        path: '{.fdl_connection_status.errors}'
+        labels:
+          service: '{.service}'
+
+  fdp_health:
+    metrics:
+      # Service status
+      - name: kuhl_haus_service_up
+        help: Service status (1=OK, 0=not OK)
+        path: '{.status_code}'
+        labels:
+          service: '{.service}'
+          container_image: '{.container_image}'
+          image_version: '{.image_version}'
+
+      # Processor configuration
+      - name: kuhl_haus_fdp_prefetch_count
+        help: RabbitMQ prefetch count
+        path: '{.prefetch_count}'
+        labels:
+          service: '{.service}'
+
+      - name: kuhl_haus_fdp_max_concurrency
+        help: Maximum processing concurrency
+        path: '{.max_concurrency}'
+        labels:
+          service: '{.service}'
+
+      # Processing metrics
+      - name: kuhl_haus_fdp_processed_total
+        help: Total articles processed
+        path: '{.processed}'
+        labels:
+          service: '{.service}'
+          processor_type: '{.queue_name}'
+
+      - name: kuhl_haus_fdp_published_total
+        help: Total results published to Redis
+        path: '{.published}'
+        labels:
+          service: '{.service}'
+          processor_type: '{.queue_name}'
+
+      - name: kuhl_haus_fdp_errors_total
+        help: Total processing errors
+        path: '{.error}'
+        labels:
+          service: '{.service}'
+          processor_type: '{.queue_name}'
+
+      - name: kuhl_haus_fdp_processing_errors_total
+        help: Total processing-stage errors
+        path: '{.processing_error}'
+        labels:
+          service: '{.service}'
+          processor_type: '{.queue_name}'
+
+      - name: kuhl_haus_fdp_decoding_errors_total
+        help: Total message decoding errors
+        path: '{.decoding_error}'
+        labels:
+          service: '{.service}'
+          processor_type: '{.queue_name}'
+
+      # Connectivity
+      - name: kuhl_haus_fdp_mdq_connected
+        help: MDQ (RabbitMQ) connection status
+        path: '{.mdq_connected}'
+        labels:
+          service: '{.service}'
+
+      - name: kuhl_haus_fdp_mdc_connected
+        help: MDC (Redis) connection status
+        path: '{.mdc_connected}'
+        labels:
+          service: '{.service}'
