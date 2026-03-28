@@ -13,6 +13,8 @@ The data plane exposes HTTP health check endpoints (`/health`) on each component
 | **MDL** — Market Data Listener | `mdl_health` | `https://mdl.example.com/health` | Listens to market data feeds via WebSocket and publishes messages to queues |
 | **MDP** — Market Data Processor | `mdp_health` | `https://mdp.example.com/health` | Consumes queued messages and processes them with parallel workers |
 | **WDS** — Widget Data Service | `wds_health` | `https://wds.example.com/health` | Serves processed data to clients over WebSocket |
+| **FDL** — Finlight Data Listener | `fdl_health` | `https://fdl.example.com/health` | Connects to Finlight WebSocket feed and publishes enriched news articles to RabbitMQ |
+| **FDP** — Finlight Data Processor | `fdp_health` | `https://fdp.example.com/health` | Consumes news articles from RabbitMQ and caches enriched results in Redis |
 
 ## Architecture
 
@@ -28,7 +30,7 @@ Prometheus is configured to scrape each component every 30 seconds. It sends req
 |---|---|
 | `compose.yml` | Docker Compose stack running the JSON Exporter and Prometheus |
 | `json_exporter_config.yml` | Metric extraction rules — maps JSON paths from health responses to Prometheus metrics |
-| `prometheus.yml` | Prometheus scrape configuration with jobs for MDL, MDP, and WDS |
+| `prometheus.yml` | Prometheus scrape configuration with jobs for MDL, MDP, WDS, FDL, and FDP |
 
 ## Metrics
 
@@ -75,6 +77,36 @@ Per-worker metrics (labeled by `worker_id`, workers 0–31):
 |---|---|
 | `kuhl_haus_service_up` | Service status (1=OK, 0=not OK) |
 | `kuhl_haus_wds_active_websocket_clients` | Number of active WebSocket client connections |
+
+### FDL (Finlight Data Listener)
+
+| Metric | Description |
+|---|---|
+| `kuhl_haus_service_up` | Service status (1=OK, 0=not OK), with `service`, `container_image`, and `image_version` labels |
+| `kuhl_haus_fdl_auto_start_enabled` | Whether auto-start is enabled |
+| `kuhl_haus_fdl_fdq_connected` | RabbitMQ queue connection status |
+| `kuhl_haus_fdl_fdq_messages_received_total` | Total messages received from the RabbitMQ queue |
+| `kuhl_haus_fdl_fdq_news_received_total` | Total news messages received (labeled `queue: 'news'`) |
+| `kuhl_haus_fdl_fdq_reconnect_attempts_total` | Total RabbitMQ reconnection attempts |
+| `kuhl_haus_fdl_feed_connected` | Finlight WebSocket feed connection status |
+| `kuhl_haus_fdl_feed_healthy` | Finlight WebSocket feed health status |
+| `kuhl_haus_fdl_articles_received_total` | Total articles received from Finlight |
+| `kuhl_haus_fdl_errors_total` | Total Finlight connection errors |
+
+### FDP (Finlight Data Processor)
+
+| Metric | Description |
+|---|---|
+| `kuhl_haus_service_up` | Service status (1=OK, 0=not OK) |
+| `kuhl_haus_fdp_prefetch_count` | RabbitMQ prefetch count |
+| `kuhl_haus_fdp_max_concurrency` | Maximum processing concurrency |
+| `kuhl_haus_fdp_processed_total` | Total articles processed (labeled `processor_type: 'news'`) |
+| `kuhl_haus_fdp_published_total` | Total results published to Redis (labeled `processor_type: 'news'`) |
+| `kuhl_haus_fdp_errors_total` | Total processing errors (labeled `processor_type: 'news'`) |
+| `kuhl_haus_fdp_processing_errors_total` | Total processing-stage errors (labeled `processor_type: 'news'`) |
+| `kuhl_haus_fdp_decoding_errors_total` | Total message decoding errors (labeled `processor_type: 'news'`) |
+| `kuhl_haus_fdp_mdq_connected` | MDQ (RabbitMQ) connection status |
+| `kuhl_haus_fdp_mdc_connected` | MDC (Redis) connection status |
 
 ## Usage
 
