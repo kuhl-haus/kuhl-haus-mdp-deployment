@@ -48,6 +48,29 @@ scrape_configs:
       - target_label: __address__
         replacement: 192.168.8.125:7979
 
+  - job_name: 'kuhl-haus-mds'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    params:
+      module: [mds_health]
+    static_configs:
+      - targets:
+        - https://mds.kuhl.haus/health
+        labels:
+          environment: prod
+      - targets:
+        - https://mds.ppe.kuhl.haus/health
+        labels:
+          environment: ppe
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 192.168.8.125:7979
+
   - job_name: 'kuhl-haus-wds'
     scrape_interval: 30s
     scrape_timeout: 10s
