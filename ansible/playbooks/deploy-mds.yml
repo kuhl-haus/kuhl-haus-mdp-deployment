@@ -104,7 +104,7 @@
                           fieldRef:
                             fieldPath: metadata.name
                       - name: WDC_REDIS_URL
-                        value: "redis://wdc-redis.{{ data_plane_namespace }}.svc.cluster.local:6379//0"
+                        value: "redis://wdc-redis.{{ data_plane_namespace }}.svc.cluster.local:6379/0"
                       - name: OTEL_SERVICE_NAME
                         value: "mds"
                       - name: OTEL_TRACES_EXPORTER
@@ -202,7 +202,7 @@
       retries: 5
       delay: 10
       until: mds_pods is succeeded
-      failed_when: false
+      failed_when: false  # Non-blocking: pod scheduling can lag; cert wait below is the hard gate
 
     # Wait for TLS certificate
     - name: Wait for MDS TLS certificate to be issued

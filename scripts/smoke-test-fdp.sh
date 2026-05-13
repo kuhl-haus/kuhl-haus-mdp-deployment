@@ -106,11 +106,11 @@ get_image_tag() {
 ###############################################################################
 SHOULD_EXIT_WITH_CODE=0
 
-if [ -z ${FDP_SERVER_DOMAIN} ]; then
+if [ -z "${FDP_SERVER_DOMAIN}" ]; then
   echo "FDP_SERVER_DOMAIN environment variable is not set!"
   exit 1
 fi
-if [ -z ${BASE_WORKING_DIR} ]; then
+if [ -z "${BASE_WORKING_DIR}" ]; then
   echo "BASE_WORKING_DIR environment variable is not set!"
   exit 1
 fi
@@ -120,7 +120,7 @@ export VERSION_SRC_DIR="${BASE_WORKING_DIR}/${VERSION_DIR_NAME}"
 
 cd "${VERSION_SRC_DIR}" || exit 1
 
-IMAGE_TAG=$(get_image_tag)
+IMAGE_TAG=$(get_image_tag) || exit 1
 
 check_image_version "https://${FDP_SERVER_DOMAIN}/health" "${IMAGE_TAG}" 60 5 || SHOULD_EXIT_WITH_CODE=1
 
