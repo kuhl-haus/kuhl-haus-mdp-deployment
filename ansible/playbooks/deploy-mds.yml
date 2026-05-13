@@ -104,7 +104,7 @@
                           fieldRef:
                             fieldPath: metadata.name
                       - name: WDC_REDIS_URL
-                        value: "redis://wdc-redis.{{ data_plane_namespace }}.svc.cluster.local:6379/0"
+                        value: "redis://wdc-redis.{{ data_plane_namespace }}.svc.cluster.local:6379//0"
                       - name: OTEL_SERVICE_NAME
                         value: "mds"
                       - name: OTEL_TRACES_EXPORTER
