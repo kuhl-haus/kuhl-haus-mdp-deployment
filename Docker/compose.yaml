@@ -93,6 +93,81 @@ services:
       timeout: 10s
       retries: 3
 
+  fdl:
+    image: ghcr.io/kuhl-haus/kuhl-haus-fdl-server:latest
+    container_name: fdl
+    ports:
+      - "0.0.0.0:4203:4203"
+    networks:
+      - data_plane
+    environment:
+      FINLIGHT_API_KEY: 'Add your Finlight API key here!'
+      RABBITMQ_URL: amqp://mdq:mdq@mdq:5672/%2F
+      MARKET_DATA_MESSAGE_TTL: 5000
+      MDQ_PUBLISHER_CONFIRMS: true
+      FDL_AUTO_START_ENABLED: false
+      FINLIGHT_INCLUDE_ENTITIES: true
+      # FINLIGHT_QUERY: 'earnings catalyst'  # Optional: full-text filter for incoming articles
+      # FINLIGHT_LANGUAGE: en               # Optional: ISO 639-1 language filter
+      # FINLIGHT_RAW: false                 # Set true to receive raw (unprocessed) article feed
+    depends_on:
+      - mdq
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4203/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  fdp:
+    image: ghcr.io/kuhl-haus/kuhl-haus-fdp-server:latest
+    container_name: fdp
+    ports:
+      - "0.0.0.0:4204:4204"
+    networks:
+      - data_plane
+    environment:
+      RABBITMQ_URL: amqp://mdq:mdq@mdq:5672/%2F
+      MDC_REDIS_URL: redis://mdc:6379/0
+      WDC_REDIS_URL: redis://mdc:6379/1
+      FINLIGHT_API_KEY: 'Add your Finlight API key here!'
+      FDP_QUEUE_NAME: news
+      PREFETCH_COUNT: 100
+      MAX_CONCURRENCY: 500
+      NEWS_FEED_LIST_MAX: 10000
+      NEWS_TICKER_LIST_MAX: 100
+      NEWS_FEED_CACHE_TTL: 172800
+      NEWS_TICKER_CACHE_TTL: 604800
+    depends_on:
+      - mdc
+      - mdq
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4204/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  mds:
+    image: ghcr.io/kuhl-haus/kuhl-haus-mds-server:latest
+    container_name: mds
+    ports:
+      - "0.0.0.0:4205:4205"
+    networks:
+      - data_plane
+    environment:
+      WDC_REDIS_URL: redis://mdc:6379/1
+      DRA_CACHE_LIST_MAX: 1000
+      # MASSIVE_API_KEY: ''  # Required only if using analyzers that call the Massive API directly
+    depends_on:
+      - mdc
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4205/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   scp:
     user: "999:999"
     container_name: scp

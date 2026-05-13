@@ -151,6 +151,21 @@ fdl_server_memory_max: "1Gi"
 market_data_listener_auto_start_enabled: "true"
 fdl_include_entities: "true"
 
+# Market Data Scanner
+mds_server_name: mds
+mds_server_namespace: "{{ data_plane_namespace }}"
+mds_server_container_port: 4205
+mds_server_replicas: 1
+mds_server_ingress_class: nginx
+mds_server_log_level: INFO
+mds_server_secret_name: "{{ mds_server_name }}-secrets"
+mds_server_cert_issuer: "{{ acme_aws_prod_issuer }}"
+mds_server_cpu_min: "500m"
+mds_server_cpu_max: "2000m"
+mds_server_memory_min: "256Mi"
+mds_server_memory_max: "2Gi"
+mds_dra_cache_list_max: 10000
+
 # Finlight Data Processor
 fdp_server_name: fdp
 fdp_server_container_port: 4204
